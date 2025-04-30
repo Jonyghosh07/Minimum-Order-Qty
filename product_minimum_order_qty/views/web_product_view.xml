@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="product_quantity_min" inherit_id="website_sale.product_quantity" name="Select Quantity">
+        <xpath expr="//input[@name='add_qty']" position="replace">
+            <!--Customer will not be able to order less than products minium order qty-->
+            <t t-if="product.minimum_order_quantity">
+                <input type="text" class="form-control quantity text-center" t-att-data-min="product.minimum_order_quantity" name="add_qty" t-att-value="product.minimum_order_quantity"/>
+            </t>
+            <t t-else="">
+                <input type="text" class="form-control quantity text-center" data-min="1" name="add_qty" t-att-value="add_qty or 1"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>
