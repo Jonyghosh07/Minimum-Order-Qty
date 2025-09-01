@@ -34,6 +34,12 @@
         "views/web_product_view.xml",
     ],
     
+    'assets': {
+        'web.assets_frontend': [
+            'product_minimum_order_qty/static/src/xml/modal_view.xml',
+        ],
+    },
+    
     'demo': [],
     'sequence':-133,
     'price': 8.00,

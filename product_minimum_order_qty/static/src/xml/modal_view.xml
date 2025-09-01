@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    
+    <!-- Fix the QuantityButtons component call -->
+    <t t-inherit="sale.Product" t-inherit-mode="extension">
+        <QuantityButtons position="replace">
+            <t t-if="!this.props.optional &amp;&amp; env.showQuantity">
+                <QuantityButtons
+                    quantity="this.props.quantity"
+                    setQuantity="quantity => this.env.setQuantity(this.props.product_tmpl_id, quantity)"
+                    isMinusButtonDisabled="this.props.quantity &lt;= (this.props.minimum_order_quantity || 1) || (this.props.quantity === 1 &amp;&amp; isMainProduct)"
+                    minimum_order_quantity="this.props.minimum_order_quantity || 1"
+                />
+            </t>
+        </QuantityButtons>
+    </t>
+
+    <!-- Override the QuantityButtons template to use minimum_order_quantity -->
+    <t t-inherit="sale.QuantityButtons" t-inherit-mode="extension">
+        <!-- Replace the input to respect minimum order quantity -->
+        <input name='sale_quantity' position="replace">
+            <input
+                class="form-control quantity text-center"
+                name="sale_quantity"
+                type="number"
+                t-att-value="this.props.quantity"
+                t-att-data-min="this.props.minimum_order_quantity"
+                t-on-change="setQuantity"
+                readonly="readonly"/>
+        </input>
+    </t>
+
+</templates>
